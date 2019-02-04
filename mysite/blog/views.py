@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
+
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView, 
                                   UpdateView, DeleteView)
@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from _datetime import timezone
+from django.utils import timezone
 
 from blog.models import (Post, Comment)
 from blog.forms import (PostForm, CommentForm)
@@ -64,7 +64,7 @@ class DraftListView(LoginRequiredMixin, ListView):
     model = Post
     
     def get_queryset(self):
-        return Post.objects.filter(published_date__isnull=True).order_by('created_date')
+        return Post.objects.filter(published_date__isnull=True).order_by('create_date')
     
     ########################################################
     
@@ -72,7 +72,7 @@ class DraftListView(LoginRequiredMixin, ListView):
 @login_required
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post.publish
+    post.publish()
     return redirect('post_detail', pk=pk)
     
 
