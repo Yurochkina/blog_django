@@ -13,6 +13,8 @@ from blog.models import (Post, Comment)
 from blog.forms import (PostForm, CommentForm)
 from django.template.context_processors import request
 
+from django.contrib import messages
+
 
 # Create your views here.
 class AboutView(TemplateView):
@@ -73,6 +75,7 @@ class DraftListView(LoginRequiredMixin, ListView):
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
+    messages.success(request, "Post published")
     return redirect('post_detail', pk=pk)
     
 
