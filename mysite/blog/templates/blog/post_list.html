@@ -1,20 +1,36 @@
 {% extends "blog/base.html" %}
 {% block content %}
 
-<div class="centerstage">
-  {% for post in post_list %}
-  <div class="post">
-    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title}}</a></h1>
-    <div class="date">
-      <p>Published on: {{post.published_date|date:"D M Y"}}</p>
-    </div>
-    <div class="date">
-      <p>Updated on: {{post.updated_date|date:"D M Y"}}</p>
-    </div>
-    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
+<div class="col-sm-8 col-sm-offset-2">
+   
+<div class="row">
+{% for post in post_list %}
+
+  <div class="col-sm-12">
+   <div class="thumbnail">
+    <div class="caption">
+     <div class="post">
+       <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title}}</a></h1>
+         <div class="date">
+            <p>Published on: {{post.published_date|date:"D M Y"}}</p>
+         </div>
+          <div class="date">
+          <p>Updated on: {{post.updated_date|date:"D M Y"}}</p>
+         </div>
+         <div class="date">
+         <p>{{ post.text|safe|linebreaks|truncatechars:120 }}</p>
+         </div>
+         
+         <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
   
+     </div>
+    </div>
+   </div>
   </div>
-  {% endfor %}
+  {% cycle "" "<div class='col-sm-12><hr/></div></div><div class='row'>" %}
+{% endfor %}
+
+</div>
 
 </div>
 

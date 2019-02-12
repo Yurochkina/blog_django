@@ -1,14 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
 
-{% if messages %}
-  <ul class = messages>
-      {% for message in messages %}
-      <li>{{message}}</li>
-      {% endfor %}
-  </ul>
-{% endif %}
-
   <h1 class="posttitle loader">{{post.title}}</h1>
   {% if post.published_date %}
     <div class="date postdate">
